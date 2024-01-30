@@ -4,6 +4,7 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/types.h>
+
 int main() {
   int *array; /* Указатель на разделяемую память */
   int shmid; /* IPC дескриптор для области разделяемой памяти */
@@ -74,5 +75,9 @@ int main() {
     printf("Can't detach shared memory\n");
     exit(-1);
   }
+
+  // if (shmctl(shmid, IPC_RMID, NULL) == 0) {
+  //   printf("Shered memory was free\n");
+  // }
   return 0;
 }

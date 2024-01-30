@@ -13,20 +13,12 @@ int main() {
       используемое для генерации ключа. Файл с таким
       именем должен существовать в текущей директории */
   key_t key;                  /* IPC ключ */
-  key_t key_2;
   /* Генерируем IPC ключ из имени файла sys1.c в
       текущей директории и номера экземпляра области
       разделяемой памяти 0 */
   if ((key = ftok(pathname, 0)) < 0) {
     printf("Can\'t generate key\n");
     exit(-1);
-  }
-  if ((key_2 = ftok(pathname, 1)) < 0) {
-    printf("Can\'t generate key with same\n");
-    exit(-1);
-  }
-  if (key == key_2) {
-    printf("FAIL");
   }
   /* Пытаемся эксклюзивно создать разделяемую память для
   сгенерированного ключа, т.е. если для этого ключа она
@@ -85,5 +77,9 @@ int main() {
     printf("Can't detach shared memory\n");
     exit(-1);
   }
+
+  // if (shmctl(shmid, IPC_RMID, NULL) == 0) {
+  //   printf("Shered memory was free\n");
+  // }
   return 0;
 }
